@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "597434534583",
+    "firebase_url": "https://tutorias-a3026.firebaseio.com",
+    "project_id": "tutorias-a3026",
+    "storage_bucket": "tutorias-a3026.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:597434534583:android:b2698f950ce582f0f85b32",
+        "android_client_info": {
+          "package_name": "com.example.tut"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "597434534583-1opkseio40m1dd4kja5bdihfar66cpdc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tut",
+            "certificate_hash": "99dca958de473ecd4f95dafdd7903bc483184a0d"
+          }
+        },
+        {
+          "client_id": "597434534583-c5lrsfllmu6i5jec9n3ashl38rjij80r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB0hLsKT8Qik9bw55ksvpB3x05cJ0u5Wc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "597434534583-c5lrsfllmu6i5jec9n3ashl38rjij80r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
