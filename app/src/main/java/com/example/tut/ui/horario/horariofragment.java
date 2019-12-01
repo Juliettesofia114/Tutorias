@@ -20,9 +20,8 @@ import com.example.tut.Recordatorios;
 
 
 public class horariofragment extends Fragment {
-
     private com.example.tut.ui.horario.HorarioViewModel HorarioViewModel;
-    Button recordatorio;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HorarioViewModel =
@@ -33,17 +32,13 @@ public class horariofragment extends Fragment {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
-
             }
         });
-        recordatorio = (Button) textView.findViewById(R.id.Recordatorios);
-        //recordatorio.setOnClickListener(this);
         return root;
+
+    }
+    public void boton(){
+        startActivity(new Intent(getActivity(), Recordatorios.class));
     }
 
-    //@Override
-    //public void onClick(View v) {
-        //Intent i = new Intent(v.getContext(), Recordatorios.class);
-        //startActivity(i);
-    //}
 }
