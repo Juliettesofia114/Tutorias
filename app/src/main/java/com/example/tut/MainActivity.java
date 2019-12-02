@@ -22,6 +22,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
@@ -70,4 +71,12 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+
+    //Función que permite ir a la pantalla de Recordatorios al oprimir el botón
+    public void gotoRecordatorios(View view){
+        Intent i = new Intent(this, Recordatorios.class);
+        startActivity(i);
+    }
+
 }
