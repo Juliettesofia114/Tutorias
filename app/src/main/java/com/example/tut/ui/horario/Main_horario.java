@@ -10,7 +10,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tut.R;
-import com.example.tut.Recordatorios;
 
 public class Main_horario extends AppCompatActivity {
     @Override

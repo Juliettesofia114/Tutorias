@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Button config = findViewById(R.id.action_settings);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -41,7 +42,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this,Crear.class));
             }
         });
-
+        config.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Configuración.class));
+            }
+        });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -79,4 +85,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    //Función que permite darle un uso a la opción de "configuración"
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            //case R.id.
+        }
+        return true;
+    }
 }

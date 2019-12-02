@@ -15,7 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Crear"></activity>
-        <activity android:name=".Registro" />
         <activity android:name=".Recordatorios" />
         <activity
             android:name=".Configuración"
