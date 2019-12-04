@@ -1,9 +1,11 @@
 package com.example.tut.ui.slideshow;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -13,13 +15,22 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.tut.R;
+import com.example.tut.Recordatorios;
+import com.example.tut.ui.login.Login;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SlideshowFragment extends Fragment {
-
+    FirebaseAuth mAuth;
+    Button cerrar;
+    View vista;
     private SlideshowViewModel slideshowViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        mAuth = FirebaseAuth.getInstance();
+        vista = inflater.inflate(R.layout.fragment_slideshow, container, false);
+        cerrar = vista.findViewById(R.id.Cerrar);
+
         slideshowViewModel =
                 ViewModelProviders.of(this).get(SlideshowViewModel.class);
         View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
@@ -30,6 +41,17 @@ public class SlideshowFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+        cerrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boton();
+            }
+        });
         return root;
+    }
+    public void boton(){
+        Intent i = new Intent(getActivity().getApplicationContext(), Login.class);
+        startActivity(i);
     }
 }

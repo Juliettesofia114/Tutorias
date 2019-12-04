@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.tut.MainActivity;
 import com.example.tut.R;
+import com.example.tut.password;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -29,7 +30,7 @@ public class Login extends AppCompatActivity {
     String password;
     private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
-
+    FirebaseUser firebaseUser;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,11 @@ public class Login extends AppCompatActivity {
         final Button login = findViewById(R.id.login);
         final Button registro = findViewById(R.id.button);
         mAuth = FirebaseAuth.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null){
+            startActivity(new Intent(Login.this, MainActivity.class));
+            finish();
+        }
         registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +97,7 @@ public class Login extends AppCompatActivity {
 
                     Toast.makeText(Login.this, "Se ha creado exitosamente un nuevo usuario", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Login.this, MainActivity.class));
+                    finish();
                 } else {
                     if (task.getException() instanceof FirebaseAuthUserCollisionException){
                         Toast.makeText(Login.this, "Este correo ya está registrado", Toast.LENGTH_LONG).show();
@@ -111,12 +118,16 @@ public class Login extends AppCompatActivity {
                 if (task.isSuccessful()) {
 
                     startActivity(new Intent(Login.this, MainActivity.class));
+                    finish();
                 } else {
                     Toast.makeText(Login.this, "Correo o contraseña incorrecta", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
+    }
+    public void gotoCambiar1(View view){
+        startActivity(new Intent(this, com.example.tut.password.class));
     }
 }
 
