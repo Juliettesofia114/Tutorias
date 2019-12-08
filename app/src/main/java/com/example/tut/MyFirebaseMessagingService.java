@@ -1,4 +1,6 @@
 package com.example.tut;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -36,8 +38,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-        }
 
+        }
+        Intent intent = new Intent(getApplicationContext(),Crear.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),0,intent,0);
         // Also if you intend on generating your own notifications as a result of a received FCM
     }
 

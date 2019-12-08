@@ -16,6 +16,7 @@
         android:layout_width="186dp"
         android:layout_height="55dp"
         android:layout_marginTop="28dp"
+        android:background="#0A860A"
         android:text="Registrarse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,10 +28,10 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="17dp"
         android:layout_marginBottom="480dp"
         android:text="Tutorías con Ingenio"
-        android:textSize="18sp"
+        android:gravity="center"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.552"
@@ -79,6 +80,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="64dp"
+        android:background="#0A860A"
         android:enabled="true"
         android:text="Iniciar Sesión"
         android:textColor="#0A0A0A"
@@ -109,7 +111,8 @@
         android:id="@+id/textView2"
         android:layout_width="161dp"
         android:layout_height="48dp"
-        android:text="Tutorías UN"
+        android:text="TutoriaUN"
+        android:gravity="center"
         android:textColor="#CE0C54E7"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -117,18 +120,20 @@
         app:layout_constraintHorizontal_bias="0.544"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.188" />
+        app:layout_constraintVertical_bias="0.114" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="186dp"
         android:layout_height="55dp"
+        android:layout_marginTop="28dp"
         android:layout_marginBottom="16dp"
-        android:onClick="gotoCambiar1"
+        android:background="#0A860A"
         android:text="Olvidé mi contraseña"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
