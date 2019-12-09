@@ -20,6 +20,9 @@ import androidx.cardview.widget.CardView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -33,6 +36,7 @@ public class tutoriasAdapter extends BaseAdapter {
     private Context contexto;
     private ArrayList<String[]> datos;
     private FirebaseFirestore db;
+    private FirebaseUser user;
 
     private int[] tutorColors = {Color.rgb(255,119,79),
             Color.rgb(76, 175, 80),

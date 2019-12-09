@@ -41,6 +41,8 @@ public class tutorusTutoria extends AppCompatActivity {
     private FirebaseUser user;
     private FirebaseFirestore db;
 
+    private String remeber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +90,7 @@ public class tutorusTutoria extends AppCompatActivity {
                 });
     }
 
-    private ArrayList<String[]>  makeDataVisible(ArrayList<Object[]> mapDocuments, String[] tutoriaID) {
+    private ArrayList<String[]>  makeDataVisible(ArrayList<Object[]> mapDocuments, final String[] tutoriaID) {
 
         ArrayList<String[]> converted = new ArrayList<>();
         String [] doc;
@@ -104,14 +106,25 @@ public class tutorusTutoria extends AppCompatActivity {
             //Perfil Tutoria
             doc[2] = "" + mapDocuments.get(i)[3];
 
-            if ((boolean) mapDocuments.get(i)[5]) {
-                doc[3] = "true";
-            } else {
-                doc[3] = "false";
-            }
             doc[4] = tutoriaID[i];
             doc[5] = (String) mapDocuments.get(i)[1];
 
+            /*
+            final int p = i;
+            db.collection("Usuarios").document(user.getUid()).collection("Recordatorios").document("Recordatorios").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if(task.isSuccessful()){
+                        remeber = task.getResult().get(tutoriaID[p]).toString();
+                    }
+                    else{
+                        remeber = "false";
+                    }
+                }
+            });
+            */
+
+            doc[3] = "false";
             converted.add(doc);
         }
 
