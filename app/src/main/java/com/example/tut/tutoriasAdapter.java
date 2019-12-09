@@ -4,11 +4,14 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.provider.CalendarContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -26,7 +29,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class tutoriasAdapter extends BaseAdapter {
 
@@ -83,7 +90,7 @@ public class tutoriasAdapter extends BaseAdapter {
             TextView Tiempo = (TextView) vista.findViewById(R.id.textoFecha);
             TextView tutor = (TextView) vista.findViewById(R.id.textoTutor);
             TextView recor = (TextView) vista.findViewById(R.id.textoAsis);
-            final CheckBox Asistencia = (CheckBox) vista.findViewById(R.id.checkAsistencia);
+            final Button Asistencia = (Button) vista.findViewById(R.id.checkAsistencia);
             ImageView icono = (ImageView) vista.findViewById(R.id.imagePerfil);
             CardView tarjeta = (CardView) vista.findViewById(R.id.card);
 
@@ -91,6 +98,12 @@ public class tutoriasAdapter extends BaseAdapter {
             Nombre.setText(asigns[Integer.parseInt(datos.get(i)[2]) + 1][Integer.parseInt(datos.get(i)[0])]);
             Tiempo.setText(datos.get(i)[1]);
             tutor.setText(datos.get(i)[5]);
+
+            icono.setImageResource(tutorIcons[Integer.parseInt(datos.get(i)[2])]);
+
+            progressDialog = new ProgressDialog(contexto);
+            final int p = i;
+            db = FirebaseFirestore.getInstance();
 
             if(Boolean.parseBoolean(datos.get(i)[3])){
                 recor.setText("Asisitirá");
@@ -113,7 +126,6 @@ public class tutoriasAdapter extends BaseAdapter {
                         Nombre.setTextColor(Color.BLACK);
                         Tiempo.setTextColor(Color.BLACK);
                         tutor.setTextColor(Color.BLACK);
-                        Asistencia.setTextColor(Color.BLACK);
                         recor.setTextColor(Color.BLACK);
                         break;
                 }
@@ -123,23 +135,37 @@ public class tutoriasAdapter extends BaseAdapter {
                 tarjeta.setCardBackgroundColor(Color.GRAY);
             }
 
-            Asistencia.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            Asistencia.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(Asistencia.isChecked()){
+                public void onClick(View v) {
                         Toast.makeText(contexto, "Ahora te recordaremos de esta tutoría", Toast.LENGTH_SHORT).show();
-                    }
+                        Date fecha;
+                        try {
+                            fecha = new SimpleDateFormat("dd/MM/yyyy hh:mm a").parse(datos.get(p)[1]);
+                        } catch (ParseException e) {
+                            Toast.makeText(contexto, "Ocurrió un error al recordar la tutoría", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
+                        Calendar beginTime = Calendar.getInstance();
+                        beginTime.setTime(fecha);
+                        Calendar endTime = Calendar.getInstance();
+                        endTime.setTime(fecha);
+                        endTime.add(Calendar.HOUR_OF_DAY, 2);
+                        Intent intent = new Intent(Intent.ACTION_INSERT)
+                                .setData(CalendarContract.Events.CONTENT_URI)
+                                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
+                                .putExtra(CalendarContract.Events.TITLE, "Tutoría - " + asigns[Integer.parseInt(datos.get(p)[2]) + 1][Integer.parseInt(datos.get(p)[0])])
+                                .putExtra(CalendarContract.Events.DESCRIPTION, "Tutor: " + datos.get(p)[5])
+                                .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
+                                .putExtra(CalendarContract.Events.HAS_ALARM, true)
+                                .putExtra(CalendarContract.Reminders.EVENT_ID, CalendarContract.Events._ID)
+                                .putExtra(CalendarContract.Events.ALLOWED_REMINDERS, "METHOD_DEFAULT")
+                                .putExtra(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT)
+                                .putExtra(CalendarContract.Reminders.MINUTES,10);
+                        contexto.startActivity(intent);
                 }
             });
-
-
-            icono.setImageResource(tutorIcons[Integer.parseInt(datos.get(i)[2])]);
-
-            progressDialog = new ProgressDialog(contexto);
-            final int p = i;
-            db = FirebaseFirestore.getInstance();
-
         }
 
         return vista;
