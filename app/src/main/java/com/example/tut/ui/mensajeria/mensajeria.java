@@ -89,8 +89,14 @@ public class mensajeria extends AppCompatActivity {
 
             }
         });
-
-
+        //Función que observa los cambios en el RecyclerView
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                bajar_mensajes();
+            }
+        });
     }
     public String getTime(){
         Date date = Calendar.getInstance().getTime();
@@ -102,5 +108,9 @@ public class mensajeria extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         String userName =user.getDisplayName();
         return userName;
+    }
+    //Función que permite que el scroll baje hasta el último mensaje recibido
+    public void bajar_mensajes(){
+        recyclerView.scrollToPosition(adapter.getItemCount()-1);
     }
 }
