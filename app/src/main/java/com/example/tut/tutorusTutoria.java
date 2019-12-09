@@ -124,7 +124,12 @@ public class tutorusTutoria extends AppCompatActivity {
             });
             */
 
-            doc[3] = "false";
+            if ((boolean) mapDocuments.get(i)[5]) {
+                doc[3] = "true";
+            } else {
+                doc[3] = "false";
+            }
+
             converted.add(doc);
         }
 

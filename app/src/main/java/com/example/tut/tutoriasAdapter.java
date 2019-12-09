@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -81,7 +82,8 @@ public class tutoriasAdapter extends BaseAdapter {
             TextView Nombre = (TextView) vista.findViewById(R.id.textoAsign);
             TextView Tiempo = (TextView) vista.findViewById(R.id.textoFecha);
             TextView tutor = (TextView) vista.findViewById(R.id.textoTutor);
-            CheckBox Asistencia = (CheckBox) vista.findViewById(R.id.checkAsistencia);
+            TextView recor = (TextView) vista.findViewById(R.id.textoAsis);
+            final CheckBox Asistencia = (CheckBox) vista.findViewById(R.id.checkAsistencia);
             ImageView icono = (ImageView) vista.findViewById(R.id.imagePerfil);
             CardView tarjeta = (CardView) vista.findViewById(R.id.card);
 
@@ -89,32 +91,50 @@ public class tutoriasAdapter extends BaseAdapter {
             Nombre.setText(asigns[Integer.parseInt(datos.get(i)[2]) + 1][Integer.parseInt(datos.get(i)[0])]);
             Tiempo.setText(datos.get(i)[1]);
             tutor.setText(datos.get(i)[5]);
-            // Asistencia.setChecked(Boolean.parseBoolean(datos.get(i)[3]));
 
-            tarjeta.setCardBackgroundColor(tutorColors[Integer.parseInt(datos.get(i)[2])]);
+            if(Boolean.parseBoolean(datos.get(i)[3])){
+                recor.setText("Asisitirá");
+                tarjeta.setCardBackgroundColor(tutorColors[Integer.parseInt(datos.get(i)[2])]);
+                switch (Integer.parseInt(datos.get(i)[2])){
+                    case(2):
+                    case(3):
+                    case(4):
+                        icono.setColorFilter(Color.WHITE);
+                        Perfil.setTextColor(Color.WHITE);
+                        Nombre.setTextColor(Color.WHITE);
+                        Tiempo.setTextColor(Color.WHITE);
+                        tutor.setTextColor(Color.WHITE);
+                        Asistencia.setTextColor(Color.WHITE);
+                        recor.setTextColor(Color.WHITE);
+                        break;
+                    default:
+                        icono.setColorFilter(Color.BLACK);
+                        Perfil.setTextColor(Color.BLACK);
+                        Nombre.setTextColor(Color.BLACK);
+                        Tiempo.setTextColor(Color.BLACK);
+                        tutor.setTextColor(Color.BLACK);
+                        Asistencia.setTextColor(Color.BLACK);
+                        recor.setTextColor(Color.BLACK);
+                        break;
+                }
+            }
+            else{
+                recor.setText("No asisitirá");
+                tarjeta.setCardBackgroundColor(Color.GRAY);
+            }
+
+            Asistencia.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(Asistencia.isChecked()){
+                        Toast.makeText(contexto, "Ahora te recordaremos de esta tutoría", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+
 
             icono.setImageResource(tutorIcons[Integer.parseInt(datos.get(i)[2])]);
-
-            switch (Integer.parseInt(datos.get(i)[2])){
-                case(2):
-                case(3):
-                case(4):
-                    icono.setColorFilter(Color.WHITE);
-                    Perfil.setTextColor(Color.WHITE);
-                    Nombre.setTextColor(Color.WHITE);
-                    Tiempo.setTextColor(Color.WHITE);
-                    tutor.setTextColor(Color.WHITE);
-                    Asistencia.setTextColor(Color.WHITE);
-                    break;
-                default:
-                    icono.setColorFilter(Color.BLACK);
-                    Perfil.setTextColor(Color.BLACK);
-                    Nombre.setTextColor(Color.BLACK);
-                    Tiempo.setTextColor(Color.BLACK);
-                    tutor.setTextColor(Color.BLACK);
-                    Asistencia.setTextColor(Color.BLACK);
-                    break;
-            }
 
             progressDialog = new ProgressDialog(contexto);
             final int p = i;
