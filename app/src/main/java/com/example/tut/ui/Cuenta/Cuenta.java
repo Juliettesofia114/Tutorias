@@ -35,7 +35,7 @@ public class Cuenta extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
-                startActivity(new Intent(getApplicationContext(),Login.class));
+                startActivity(new Intent(getApplicationContext(), com.example.tut.logIn.class));
                 finish();
             }
         });

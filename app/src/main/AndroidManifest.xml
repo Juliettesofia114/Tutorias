@@ -19,7 +19,7 @@
             android:label="Cuenta"
             ></activity>
         <activity
-            android:name=".ui.login.Registro"
+            android:name=".insertData"
             android:label="Registro"
             />
         <activity
@@ -30,6 +30,7 @@
             android:name=".ui.mensajeria.mensajeria"
             android:label="Mensajes"
             />
+
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
@@ -57,7 +58,10 @@
             android:name=".Recordatorios"
             android:label="Tutorías"/>
         <activity
-            android:name=".ui.login.Login"
+            android:name=".tutorusTutoria"
+            android:label="Tutorías"/>
+        <activity
+            android:name=".logIn"
             android:label= "Inicio de Sesión"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>

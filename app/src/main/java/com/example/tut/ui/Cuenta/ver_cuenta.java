@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,12 +26,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ver_cuenta extends AppCompatActivity {
-    private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
     private FirebaseUser firebaseUser;
     private FirebaseDatabase database;
@@ -44,82 +49,130 @@ public class ver_cuenta extends AppCompatActivity {
     Boolean confuser = false;
     Boolean confemail = false;
     Boolean confid = false;
+    private ProgressDialog progressDialog;
+
+    private FirebaseFirestore db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_cuenta);
+
         id = findViewById(R.id.id);
         user = findViewById(R.id.user);
         email = findViewById(R.id.email);
         guardar = findViewById(R.id.guardar);
+
+        db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("Usersid");
         firebaseUser = mAuth.getCurrentUser();
         userUid = firebaseUser.getUid();
         user1 = firebaseUser.getDisplayName();
         email1 = firebaseUser.getEmail();
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.dismiss();
+
         email.setText(email1);
+
         if (user1.isEmpty()) {
             user.setText("Sin especificar");
         } else {
             user.setText(user1);
         }
 
+        db.collection("Usuarios").document(userUid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    id.setText("" + task.getResult().get("ID"));
+                }
+                else{
+                    id.setText("Error al conectar");
+                }
+            }
+        });
+
+
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nuevo_user = user.getText().toString();
-                String nuevo_email = email.getText().toString();
-                String nuevo_id = id.getText().toString();
+                final String nuevo_user = user.getText().toString();
+                final String nuevo_email = email.getText().toString();
+                final String nuevo_id = id.getText().toString();
 
-                if ((nuevo_user!=user1 && !nuevo_user.isEmpty()) || (nuevo_email!=email1 && !nuevo_email.isEmpty()) || (nuevo_id!=ident && !nuevo_id.isEmpty())){
+                if(nuevo_email.isEmpty()){
+                    email.setError("Campo obligatorio");
+                    email.requestFocus();
+                    return;
+                }
+
+                if (!Patterns.EMAIL_ADDRESS.matcher(nuevo_email).matches()) {
+                    email.setError("Ingrese un correo válido");
+                    email.requestFocus();
+                    return;
+                }
+
+                if(nuevo_user.isEmpty()){
+                    user.setError("Campo obligatorio");
+                    user.requestFocus();
+                    return;
+                }
+
+                if(nuevo_id.isEmpty()){
+                    id.setError("Campo obligatorio");
+                    id.requestFocus();
+                    return;
+                }
+
+                if (nuevo_user != user1 || nuevo_email != email1 || nuevo_id != ident ){
+
+                    progressDialog.setMessage("Actualizando datos");
+                    progressDialog.show();
 
                     UserProfileChangeRequest userProfileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(nuevo_user).build();
                     firebaseUser.updateProfile(userProfileChangeRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
-                                confuser = true;
+                                firebaseUser.updateEmail(email1).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()){
+                                            Map<String, Object> map = new HashMap<>();
+                                            map.put("Nombre", nuevo_user);
+                                            map.put("ID", nuevo_id);
+
+                                            db.collection("Usuarios").document(userUid).update(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if(task.isSuccessful()){
+                                                        Toast.makeText(ver_cuenta.this, "Se han actualizado los datos", Toast.LENGTH_SHORT).show();
+                                                        progressDialog.dismiss();
+                                                    }
+                                                    else{
+                                                        Toast.makeText(ver_cuenta.this, "Hubo un error, inténtelo de nuevo", Toast.LENGTH_SHORT).show();
+                                                        progressDialog.dismiss();
+                                                    }
+                                                }
+                                            });
+                                        } else {
+                                            Toast.makeText(ver_cuenta.this, "Hubo un error, inténtelo de nuevo", Toast.LENGTH_SHORT).show();
+                                            progressDialog.dismiss();
+                                        }
+                                    }
+                                });
                             } else {
                                 Toast.makeText(ver_cuenta.this, "Hubo un error, inténtelo de nuevo", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
                             }
                         }
                     });
-                    firebaseUser.updateEmail(email1).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
-                                confemail = true;
-                            } else {
-                                Toast.makeText(ver_cuenta.this, "Hubo un error, inténtelo de nuevo", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                    final FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference ref = database.getReference();
-                    DatabaseReference idref = ref.child("Usersid");
-                    idref.child(userUid).setValue(nuevo_id);
-                    if (confemail && confuser){
-                        Toast.makeText(ver_cuenta.this, "Se han actualizado los datos del perfil con éxito", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        });
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                try {
-                    ident = dataSnapshot.child(userUid).getValue().toString();
-                    id.setText(ident);
-                } catch (Exception e){
-                    id.setText("Sin especificar");
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
+
+
+                }
             }
         });
 

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -32,7 +33,8 @@ public class password extends AppCompatActivity {
             public void onClick(View v) {
                 correo = email.getText().toString().trim();
                 if (correo.isEmpty()){
-                    Toast.makeText(password.this, "Debe ingresar un correo electrónico", Toast.LENGTH_SHORT).show();
+                    email.setError("Campo obligatorio");
+                    email.requestFocus();
                 } else {
                     resetPassword();
                 }
@@ -47,6 +49,8 @@ public class password extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(password.this, "Se ha enviado un correo a la cuenta para reestablecer tu contraseña", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(password.this, com.example.tut.logIn.class));
+                    finish();
                 } else {
                     Toast.makeText(password.this, "Hubo un error, inténtalo de nuevo", Toast.LENGTH_SHORT).show();
                 }

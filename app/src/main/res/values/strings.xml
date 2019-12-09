@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tut</string>
+    <string name="app_name">TutoriaUN</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -41,4 +41,50 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="tutorIngenio">Tutorias con Ingenio</string>
+    <string name="correoCampo">Correo Electrónico</string>
+    <string name="correoContrasena">Contraseña</string>
+    <string name="botonIniciar">Iniciar Sesión</string>
+    <string name="botonRegistrar">Registrarse</string>
+    <string name="campoNombre">Nombre</string>
+    <string name="campoID">N° de Identificación</string>
+    <string name="regsText">Ingresa tus datos a continuación</string>
+    <string name="title_activity_tutorus_tutoria">Inicio - TutoriaUN</string>
+    <string name="yourTutories"><u>Tus tutorías</u></string>
+    <string name="tutoryLoading">Cargando tutorías...</string>
+    <string name="tutoryNone">No tienes tutorías</string>
+    <string name="tutorySuggest">¡A descansar!</string>
+    <string name="forget">¿Olvidaste tu contraseña? Haz <u>click aquí</u> para recuperarla</string>
+
+    <string-array name="dias">
+        <item>Lunes</item>
+        <item>Martes</item>
+        <item>Miércoles</item>
+        <item>Jueves</item>
+        <item>Viernes</item>
+    </string-array>
+
+    <string-array name="perfiles">
+        <item>Fundamentos de Física</item>
+        <item>Programación</item>
+        <item>Circuitos, Señales y Control</item>
+        <item>Química</item>
+        <item>Termodinámica y Transferencia de Calor y Masa</item>
+        <item>Hidráulica y Manejo de Aguas</item>
+        <item>Dinámica, Estática y Dibujo Básico</item>
+        <item>Matemáticas</item>
+    </string-array>
+
+    <string name="perfilText">Perfil Educativo</string>
+    <string name="asignaturaText">Asignatura</string>
+    <string name="diaText">Fecha</string>
+    <string name="horaText">Hora</string>
+    <string name="time">hh</string>
+    <string name="date">dd/mm/aaaa</string>
+    <string name="asistencia">Recordatorio</string>
+    <string name="wait">Por favor espera...</string>
+    <string name="saveCuenta">Guardar cambios</string>
+    <string name="CuentaChanges">Si hizo algún cambio recuerde guardar cambios</string>
+    <string name="connectError">Error al conectar</string>
 </resources>

@@ -13,7 +13,6 @@ import com.example.tut.ui.Cuenta.Cuenta;
 import com.example.tut.ui.mensajeria.mensajeria;
 
 public class MainActivity extends AppCompatActivity {
-    private ImageView crear;
     private ImageView enviar;
     private ImageView config;
     private ImageView horario;
@@ -21,16 +20,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        crear = findViewById(R.id.crear_tutoria);
         enviar = findViewById(R.id.enviar);
         config = findViewById(R.id.config);
         horario = findViewById(R.id.visual);
-        crear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,Crear.class));
-            }
-        });
+
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         horario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, Recordatorios.class));
+                startActivity(new Intent(MainActivity.this, tutorusTutoria.class));
             }
         });
     }
