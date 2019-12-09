@@ -28,6 +28,10 @@ public class password extends AppCompatActivity {
         final EditText email = findViewById(R.id.email);
         restablecer = findViewById(R.id.button2);
         mAuth = FirebaseAuth.getInstance();
+
+        dialog = new ProgressDialog(this);
+        dialog.dismiss();
+
         restablecer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,16 +47,21 @@ public class password extends AppCompatActivity {
     }
 
     private void resetPassword(){
+        dialog.setMessage("Ayudandote con tu contraseña");
+        dialog.show();
+
         mAuth.setLanguageCode("es");
         mAuth.sendPasswordResetEmail(correo).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(password.this, "Se ha enviado un correo a la cuenta para reestablecer tu contraseña", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
                     startActivity(new Intent(password.this, com.example.tut.logIn.class));
                     finish();
                 } else {
                     Toast.makeText(password.this, "Hubo un error, inténtalo de nuevo", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
                 }
             }
         });
