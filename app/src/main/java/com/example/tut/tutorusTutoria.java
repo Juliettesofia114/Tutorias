@@ -65,9 +65,7 @@ public class tutorusTutoria extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            String[] tutoriaId = new String[task.getResult().size()];
                             String[] objectOrdered;
-                            int i = 0;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 objectOrdered = new String[6];
                                 objectOrdered[0] = document.get("Nombre").toString();
