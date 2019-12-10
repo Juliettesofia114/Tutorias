@@ -16,7 +16,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
-        android:layout_width="390dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
@@ -37,56 +37,69 @@
                 android:id="@+id/textoFecha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="@string/date"
                 app:layout_constraintEnd_toEndOf="@+id/checkAsistencia"
                 app:layout_constraintTop_toBottomOf="@+id/textoTutor" />
 
             <TextView
                 android:id="@+id/textoPerfil"
-                android:layout_width="145dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
                 android:ellipsize="none"
                 android:maxLines="100"
                 android:scrollHorizontally="false"
                 android:text="@string/perfilText"
                 android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/checkAsistencia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:text="@string/asistencia"
+                android:textSize="12sp"
+                android:tint="@color/colorPrimaryDark"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textoPerfil" />
+                app:layout_constraintTop_toBottomOf="@+id/textoPerfil"
+                app:srcCompat="@drawable/ic_bell" />
+
 
             <TextView
                 android:id="@+id/textoAsign"
-                android:layout_width="145dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginEnd="72dp"
+                android:layout_marginRight="72dp"
                 android:ellipsize="none"
                 android:maxLines="100"
                 android:scrollHorizontally="false"
                 android:text="@string/campoNombre"
                 android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/checkAsistencia"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textoPerfil"
-                app:layout_constraintTop_toBottomOf="@+id/textoPerfil" />
+                app:layout_constraintTop_toTopOf="@+id/checkAsistencia" />
 
             <TextView
                 android:id="@+id/textoTutor"
-                android:layout_width="145dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:ellipsize="none"
                 android:maxLines="100"
                 android:scrollHorizontally="false"
                 android:text="@string/campoNombre"
                 android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/textoAsign"
                 app:layout_constraintStart_toStartOf="@+id/textoAsign"
                 app:layout_constraintTop_toBottomOf="@+id/textoAsign" />
 
@@ -95,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="50dp" />
+                app:layout_constraintGuide_percent="0.15" />
 
             <ImageView
                 android:id="@+id/imagePerfil"
@@ -109,11 +122,11 @@
 
             <TextView
                 android:id="@+id/idLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
                 android:textSize="8sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toBottomOf="@+id/textoFecha" />
 
@@ -121,10 +134,10 @@
                 android:id="@+id/textoAsis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:text="@string/asistencia"
+                app:layout_constraintBottom_toBottomOf="@+id/textoTutor"
                 app:layout_constraintEnd_toEndOf="@+id/checkAsistencia"
-                app:layout_constraintTop_toBottomOf="@+id/checkAsistencia" />
+                app:layout_constraintTop_toTopOf="@+id/textoTutor" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
@@ -135,7 +148,9 @@
         android:layout_height="wrap_content"
         android:textSize="8sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

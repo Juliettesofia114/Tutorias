@@ -90,7 +90,7 @@ public class tutoriasAdapter extends BaseAdapter {
             TextView Tiempo = (TextView) vista.findViewById(R.id.textoFecha);
             TextView tutor = (TextView) vista.findViewById(R.id.textoTutor);
             TextView recor = (TextView) vista.findViewById(R.id.textoAsis);
-            final Button Asistencia = (Button) vista.findViewById(R.id.checkAsistencia);
+            final ImageButton Asistencia = (ImageButton) vista.findViewById(R.id.checkAsistencia);
             ImageView icono = (ImageView) vista.findViewById(R.id.imagePerfil);
             CardView tarjeta = (CardView) vista.findViewById(R.id.card);
 
@@ -117,7 +117,6 @@ public class tutoriasAdapter extends BaseAdapter {
                         Nombre.setTextColor(Color.WHITE);
                         Tiempo.setTextColor(Color.WHITE);
                         tutor.setTextColor(Color.WHITE);
-                        Asistencia.setTextColor(Color.WHITE);
                         recor.setTextColor(Color.WHITE);
                         break;
                     default:

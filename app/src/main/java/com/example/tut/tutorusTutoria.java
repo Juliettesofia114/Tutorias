@@ -41,8 +41,6 @@ public class tutorusTutoria extends AppCompatActivity {
     private FirebaseUser user;
     private FirebaseFirestore db;
 
-    private String remeber;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +57,8 @@ public class tutorusTutoria extends AppCompatActivity {
 
     }
 
-    private void lookTutorias(){
-        final ArrayList<Object[]> mapDocuments = new ArrayList<>();
+    private void lookTutorias() {
+        final ArrayList<String[]> mapDocuments = new ArrayList<>();
 
         db.collection("Tutorias").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -68,72 +66,38 @@ public class tutorusTutoria extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             String[] tutoriaId = new String[task.getResult().size()];
+                            String[] objectOrdered;
                             int i = 0;
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                mapDocuments.add(document.getData().values().toArray());
-                                tutoriaId[i] = document.getId();
-                                i++;
+                                objectOrdered = new String[6];
+                                objectOrdered[0] = document.get("Nombre").toString();
+                                objectOrdered[1] = new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(document.get("Hora"));
+                                objectOrdered[2] = document.get("Perfil").toString();
+
+                                if ((boolean) document.get("Asistencia")) {
+                                    objectOrdered[3] = "true";
+                                } else {
+                                    objectOrdered[3] = "false";
+                                }
+
+                                objectOrdered[4] = document.getId();
+                                objectOrdered[5] = document.get("Tutor").toString();
+
+                                mapDocuments.add(objectOrdered);
                             }
-                            dataConverted = makeDataVisible(mapDocuments, tutoriaId);
 
                             try {
-                                dataOrdered = orderedByDate(dataConverted);
+                                dataOrdered = orderedByDate(mapDocuments);
                                 listaTutorias.setAdapter(new tutoriasAdapter(tutorusTutoria.this, dataOrdered));
                             } catch (ParseException e) {
                                 Toast.makeText(tutorusTutoria.this, e.toString(), Toast.LENGTH_LONG);
-                                listaTutorias.setAdapter( new tutoriasAdapterLoading(tutorusTutoria.this,1));
+                                listaTutorias.setAdapter(new tutoriasAdapterLoading(tutorusTutoria.this, 1));
                             }
                         } else {
-                            listaTutorias.setAdapter( new tutoriasAdapterLoading(tutorusTutoria.this,1));
+                            listaTutorias.setAdapter(new tutoriasAdapterLoading(tutorusTutoria.this, 1));
                         }
                     }
                 });
-    }
-
-    private ArrayList<String[]>  makeDataVisible(ArrayList<Object[]> mapDocuments, final String[] tutoriaID) {
-
-        ArrayList<String[]> converted = new ArrayList<>();
-        String [] doc;
-
-        for(int i = 0; i < mapDocuments.size(); i++) {
-            doc = new String[6];
-            //NombreTutoria
-            doc[0] = "" + mapDocuments.get(i)[0];
-
-            //Fecha Tutoria
-            doc[1] = new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(mapDocuments.get(i)[2]);
-
-            //Perfil Tutoria
-            doc[2] = "" + mapDocuments.get(i)[3];
-
-            doc[4] = tutoriaID[i];
-            doc[5] = (String) mapDocuments.get(i)[1];
-
-            /*
-            final int p = i;
-            db.collection("Usuarios").document(user.getUid()).collection("Recordatorios").document("Recordatorios").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if(task.isSuccessful()){
-                        remeber = task.getResult().get(tutoriaID[p]).toString();
-                    }
-                    else{
-                        remeber = "false";
-                    }
-                }
-            });
-            */
-
-            if ((boolean) mapDocuments.get(i)[5]) {
-                doc[3] = "true";
-            } else {
-                doc[3] = "false";
-            }
-
-            converted.add(doc);
-        }
-
-        return converted;
     }
 
     private ArrayList<String[]>  orderedByDate(ArrayList<String[]> converted) throws ParseException {
@@ -148,12 +112,16 @@ public class tutorusTutoria extends AppCompatActivity {
 
         ArrayList<String[]> ordered = new ArrayList<>();
         String [] doc;
+        Boolean [] checked = new Boolean[dates.size()];
+        for(int i = 0; i < dates.size(); i++){
+            checked[i] = false;
+        }
 
         for(int i = 0; i < dates.size(); i++){
             doc = new String[6];
             for(int j = 0; j < dates.size(); j++){
 
-                if( (new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(dates.get(i))).equals(converted.get(j)[1]) ){
+                if( (new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(dates.get(i))).equals(converted.get(j)[1]) && !checked[j] ){
                     doc[0] = converted.get(j)[0];
                     doc[1] = converted.get(j)[1];
                     doc[2] = converted.get(j)[2];
@@ -161,6 +129,7 @@ public class tutorusTutoria extends AppCompatActivity {
                     doc[4] = converted.get(j)[4];
                     doc[5] = converted.get(j)[5];
                     ordered.add(doc);
+                    checked[j] = true;
                     break;
                 }
             }
