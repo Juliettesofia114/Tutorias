@@ -1,7 +1,6 @@
 package com.example.tut.ui.Cuenta;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -10,7 +9,6 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tut.R;
@@ -19,17 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,18 +26,13 @@ import java.util.Map;
 public class ver_cuenta extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser firebaseUser;
-    private FirebaseDatabase database;
     private EditText id;
     private EditText user;
     private EditText email;
     private Button guardar;
-    private String ident;
     private String email1;
     private String userUid;
     private String user1;
-    Boolean confuser = false;
-    Boolean confemail = false;
-    Boolean confid = false;
     private ProgressDialog progressDialog;
 
     private FirebaseFirestore db;
@@ -125,7 +109,7 @@ public class ver_cuenta extends AppCompatActivity {
                     return;
                 }
 
-                if (nuevo_user != user1 || nuevo_email != email1 || nuevo_id != ident ){
+
 
                     progressDialog.setMessage("Actualizando datos");
                     progressDialog.show();
@@ -141,7 +125,7 @@ public class ver_cuenta extends AppCompatActivity {
                                         if (task.isSuccessful()){
                                             Map<String, Object> map = new HashMap<>();
                                             map.put("Nombre", nuevo_user);
-                                            map.put("ID", nuevo_id);
+                                            map.put("ID", Long.parseLong(nuevo_id));
 
                                             db.collection("Usuarios").document(userUid).update(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
@@ -169,10 +153,6 @@ public class ver_cuenta extends AppCompatActivity {
                         }
                     });
 
-
-
-
-                }
             }
         });
 

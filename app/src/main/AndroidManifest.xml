@@ -14,18 +14,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".ui.Cuenta.ver_cuenta"
             android:label="Cuenta"
             ></activity>
+
         <activity
+
             android:name=".insertData"
             android:label="Registro"
             />
+
         <activity
             android:name=".ui.Cuenta.Cuenta"
             android:label="Cuenta"
             />
+
         <activity
             android:name=".ui.mensajeria.mensajeria"
             android:label="Mensajes"
@@ -36,30 +41,15 @@
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             />
 
-        <service android:name=".MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
-        <activity
-            android:name=".datos"
-            android:label="Cuenta"
-            />
         <activity
             android:name=".ui.Cuenta.password"
             android:label="Restablecer contraseña"
             />
-        <activity
-            android:name=".Crear"
-            android:label="Nueva tutoría"
-            />
-        <activity
-            android:name=".Recordatorios"
-            android:label="Tutorías"/>
+
         <activity
             android:name=".tutorusTutoria"
             android:label="Tutorías"/>
+
         <activity
             android:name=".logIn"
             android:label= "TutoriaUN"
@@ -70,6 +60,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
