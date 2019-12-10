@@ -10,66 +10,15 @@
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/app_name"
         android:textColor="#3795DD"
         android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textView15"
-        app:layout_constraintStart_toStartOf="@+id/textView15"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.203" />
-
-    <EditText
-        android:id="@+id/emailCampo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="340dp"
-        android:ems="10"
-        android:hint="@string/correoCampo"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/passCampo"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="@+id/passCampo"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.008" />
-
-    <EditText
-        android:id="@+id/passCampo"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/correoContrasena"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/iniciarBoton"
-        app:layout_constraintStart_toStartOf="@+id/iniciarBoton"
-        app:layout_constraintTop_toBottomOf="@+id/emailCampo"
-        app:layout_constraintVertical_bias="0.112" />
-
-    <Button
-        android:id="@+id/iniciarBoton"
-        android:layout_width="155dp"
-        android:layout_height="wrap_content"
-        android:onClick="buttonLogIn"
-        android:text="@string/botonIniciar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/registrarBoton"
-        app:layout_constraintStart_toStartOf="@+id/registrarBoton"
-        app:layout_constraintTop_toBottomOf="@+id/passCampo"
-        app:layout_constraintVertical_bias="0.148" />
-
-    <Button
-        android:id="@+id/registrarBoton"
-        android:layout_width="155dp"
-        android:layout_height="wrap_content"
-        android:onClick="buttonRegistrar"
-        android:text="@string/botonRegistrar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/forgotLink"
-        app:layout_constraintStart_toStartOf="@+id/forgotLink"
-        app:layout_constraintTop_toBottomOf="@+id/iniciarBoton"
-        app:layout_constraintVertical_bias="0.148" />
+        app:layout_constraintBottom_toTopOf="@+id/emailCampo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView15"
@@ -77,21 +26,87 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/tutorIngenio"
+        app:layout_constraintBottom_toTopOf="@+id/emailCampo"
+        app:layout_constraintEnd_toEndOf="@+id/textView16"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="@+id/textView16"
+        app:layout_constraintTop_toBottomOf="@+id/textView16"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/emailCampo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:ems="10"
+        android:hint="@string/correoCampo"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.48000002" />
+
+    <EditText
+        android:id="@+id/passCampo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/correoContrasena"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/emailCampo"
         app:layout_constraintStart_toStartOf="@+id/emailCampo"
-        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+        app:layout_constraintTop_toBottomOf="@+id/emailCampo"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/iniciarBoton"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="buttonLogIn"
+        android:text="@string/botonIniciar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passCampo"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/registrarBoton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="buttonRegistrar"
+        android:text="@string/botonRegistrar"
+        app:layout_constraintEnd_toEndOf="@+id/iniciarBoton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/iniciarBoton"
+        app:layout_constraintTop_toBottomOf="@+id/iniciarBoton" />
 
     <TextView
         android:id="@+id/forgotLink"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
         android:text="@string/forget"
         android:textColor="#2388D8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registrarBoton"
-        app:layout_constraintVertical_bias="0.16" />
+        app:layout_constraintTop_toBottomOf="@+id/registrarBoton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
