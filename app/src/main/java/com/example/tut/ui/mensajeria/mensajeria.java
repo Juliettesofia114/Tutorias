@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.tut.R;
@@ -30,7 +32,7 @@ import java.util.Map;
 
 public class mensajeria extends AppCompatActivity {
     private EditText mensaje;
-    private Button enviar;
+    private ImageButton enviar;
     private RecyclerView recyclerView;
     FirebaseAuth mAuth;
     String user;
@@ -44,7 +46,7 @@ public class mensajeria extends AppCompatActivity {
         setContentView(R.layout.activity_mensajeria);
         recyclerView = findViewById(R.id.cardList);
         mensaje= findViewById(R.id.editText);
-        enviar = findViewById(R.id.enviar);
+        enviar = (ImageButton) findViewById(R.id.enviar);
         mAuth = FirebaseAuth.getInstance();
         adapter = new Adapter(this);
         database = FirebaseDatabase.getInstance();

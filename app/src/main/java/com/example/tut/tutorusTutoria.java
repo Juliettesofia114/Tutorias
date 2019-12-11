@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -26,6 +27,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
@@ -60,7 +62,7 @@ public class tutorusTutoria extends AppCompatActivity {
     private void lookTutorias() {
         final ArrayList<String[]> mapDocuments = new ArrayList<>();
 
-        db.collection("Tutorias").get()
+        db.collection("Tutorias").orderBy("Hora").startAfter(Calendar.getInstance().getTime()).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -83,14 +85,7 @@ public class tutorusTutoria extends AppCompatActivity {
 
                                 mapDocuments.add(objectOrdered);
                             }
-
-                            try {
-                                dataOrdered = orderedByDate(mapDocuments);
-                                listaTutorias.setAdapter(new tutoriasAdapter(tutorusTutoria.this, dataOrdered));
-                            } catch (ParseException e) {
-                                Toast.makeText(tutorusTutoria.this, e.toString(), Toast.LENGTH_LONG);
-                                listaTutorias.setAdapter(new tutoriasAdapterLoading(tutorusTutoria.this, 1));
-                            }
+                            listaTutorias.setAdapter(new tutoriasAdapter(tutorusTutoria.this, mapDocuments));
                         } else {
                             listaTutorias.setAdapter(new tutoriasAdapterLoading(tutorusTutoria.this, 1));
                         }
@@ -98,43 +93,6 @@ public class tutorusTutoria extends AppCompatActivity {
                 });
     }
 
-    private ArrayList<String[]>  orderedByDate(ArrayList<String[]> converted) throws ParseException {
-
-        ArrayList<Date> dates = new ArrayList<>();
-
-        for(String [] a: converted){
-            dates.add(new SimpleDateFormat("dd/MM/yyyy hh:mm a").parse(a[1]));
-        }
-
-        Collections.sort(dates);
-
-        ArrayList<String[]> ordered = new ArrayList<>();
-        String [] doc;
-        Boolean [] checked = new Boolean[dates.size()];
-        for(int i = 0; i < dates.size(); i++){
-            checked[i] = false;
-        }
-
-        for(int i = 0; i < dates.size(); i++){
-            doc = new String[6];
-            for(int j = 0; j < dates.size(); j++){
-
-                if( (new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(dates.get(i))).equals(converted.get(j)[1]) && !checked[j] ){
-                    doc[0] = converted.get(j)[0];
-                    doc[1] = converted.get(j)[1];
-                    doc[2] = converted.get(j)[2];
-                    doc[3] = converted.get(j)[3];
-                    doc[4] = converted.get(j)[4];
-                    doc[5] = converted.get(j)[5];
-                    ordered.add(doc);
-                    checked[j] = true;
-                    break;
-                }
-            }
-        }
-
-        return ordered;
-    }
 
 }
 
