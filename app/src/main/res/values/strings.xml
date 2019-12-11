@@ -87,4 +87,5 @@
     <string name="saveCuenta">Guardar cambios</string>
     <string name="CuentaChanges">Si hizo algún cambio recuerde guardar cambios</string>
     <string name="connectError">Error al conectar</string>
+    <string name="errorTutorMessage">Ha ocurrido un error al buscar las tutorías</string>
 </resources>

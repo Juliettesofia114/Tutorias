@@ -53,9 +53,15 @@ public class tutorusTutoria extends AppCompatActivity {
         user = mAuth.getCurrentUser();
 
         listaTutorias = (ListView) findViewById(R.id.listaTutorias);
-        listaTutorias.setAdapter( new tutoriasAdapterLoading(this,0));
+        listaTutorias.setAdapter( new tutoriasAdapterLoading(this));
 
-        lookTutorias();
+        try {
+            lookTutorias();
+        }
+        catch (Exception e){
+            listaTutorias.setAdapter(new tutoriasAdapterError(tutorusTutoria.this));
+        }
+
 
     }
 
@@ -87,7 +93,7 @@ public class tutorusTutoria extends AppCompatActivity {
                             }
                             listaTutorias.setAdapter(new tutoriasAdapter(tutorusTutoria.this, mapDocuments));
                         } else {
-                            listaTutorias.setAdapter(new tutoriasAdapterLoading(tutorusTutoria.this, 1));
+                            listaTutorias.setAdapter(new tutoriasAdapterError(tutorusTutoria.this));
                         }
                     }
                 });

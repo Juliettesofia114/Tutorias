@@ -6,13 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-public class tutoriasAdapterLoading extends BaseAdapter {
+public class tutoriasAdapterError extends BaseAdapter {
 
     private static LayoutInflater inflater = null;
 
     private Context contexto;
 
-    public tutoriasAdapterLoading(Context conexto) {
+    public tutoriasAdapterError(Context conexto) {
         this.contexto = conexto;
 
         inflater = (LayoutInflater) conexto.getSystemService(conexto.LAYOUT_INFLATER_SERVICE);
@@ -21,7 +21,7 @@ public class tutoriasAdapterLoading extends BaseAdapter {
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
 
-        View vista = inflater.inflate(R.layout.elem_lista2, null);
+        View vista = inflater.inflate(R.layout.elem_lista1, null);
         return vista;
     }
 
