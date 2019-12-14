@@ -58,8 +58,11 @@ public class mensajeria extends AppCompatActivity {
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                msn = mensaje.getText().toString();
-
+                msn = mensaje.getText().toString().trim();
+                if(msn.isEmpty()){
+                    Toast.makeText(mensajeria.this, "No podemos enviar mensajes vacíos o con sólo espacios", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 databaseReference.push().setValue(new Mensaje(user,mensaje.getText().toString(),getTime()));
                 mensaje.setText("");
             }

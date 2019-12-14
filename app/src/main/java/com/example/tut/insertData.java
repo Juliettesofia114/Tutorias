@@ -2,6 +2,8 @@ package com.example.tut;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -15,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -142,19 +145,33 @@ public class insertData extends AppCompatActivity {
                     });
 
                 } else {
-                    // Mensaje que aparece si un usuario ya registrado se aparece a registar
-                    if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                        Toast.makeText(insertData.this, "Este usuario ya se encuentra registrado", Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(insertData.this, "No se pudo registrar su usuario (FB)", Toast.LENGTH_LONG).show();
+
+                    if(internetConnected()){
+                        try {
+                            throw task.getException();
+                        } catch(FirebaseAuthUserCollisionException e) {
+                            Toast.makeText(insertData.this,"Este usuario ya está registrado", Toast.LENGTH_LONG).show();
+                        } catch (Exception e) {
+                            Toast.makeText(insertData.this,"Ha ocurrido un error al iniciar sesión", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    else{
+                        Toast.makeText(insertData.this,"No tienes conexión a internet. Conéctate y vuelve a intentarlo", Toast.LENGTH_LONG).show();
                     }
                 }
             }
         });
 
+    }
 
-
-
+    private boolean internetConnected(){
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(this.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            return true;
+        }
+        else
+            return false;
     }
 
 }
