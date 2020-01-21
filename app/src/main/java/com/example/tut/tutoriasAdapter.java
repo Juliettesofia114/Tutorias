@@ -41,7 +41,7 @@ public class tutoriasAdapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
     private ProgressDialog progressDialog;
 
-    private Context contexto;
+      private Context contexto;
     private ArrayList<String[]> datos;
     private FirebaseFirestore db;
     private FirebaseUser user;
